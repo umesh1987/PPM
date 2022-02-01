@@ -1,26 +1,14 @@
-package com.ppm.entity;
+package com.ppm.dto;
 
 import java.util.Date;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
-@Entity
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
-public class Project {
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+public class ProjectDto {
 	private Long id;
 	private String projectName;
 	private String projectIdentifier;
@@ -40,4 +28,5 @@ public class Project {
 	protected void onUpdate() {
 		this.updatedAt = new Date();
 	}
+
 }
