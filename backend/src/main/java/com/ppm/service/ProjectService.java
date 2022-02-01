@@ -26,8 +26,8 @@ public class ProjectService {
 		project.setDescription(projectDto.getDescription());
 		project.setStartDate(projectDto.getStartDate());
 		project.setEndDate(projectDto.getEndDate());
-		project.setCreatedAt(projectDto.getCreatedAt());
-		project.setUpdatedAt(projectDto.getUpdatedAt());
+		project.setCreatedDate(projectDto.getCreatedDate());
+		project.setUpdateddate(projectDto.getUpdatedDate());
 		return project;
 		
 	}
@@ -40,8 +40,8 @@ public class ProjectService {
 		projectDto.setDescription(project.getDescription());
 		projectDto.setStartDate(project.getStartDate());
 		projectDto.setEndDate(project.getEndDate());
-		projectDto.setCreatedAt(project.getCreatedAt());
-		projectDto.setUpdatedAt(project.getUpdatedAt());
+		projectDto.setCreatedDate(project.getCreatedDate());
+		projectDto.setUpdatedDate(project.getUpdateddate());
 		return projectDto;		
 	}
 
