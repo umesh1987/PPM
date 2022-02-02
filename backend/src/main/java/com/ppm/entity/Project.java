@@ -2,6 +2,7 @@ package com.ppm.entity;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,23 +22,37 @@ public class Project {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
 	private Long id;
+	
+	@Column(name = "projectname")
 	private String projectName;
+	
+	@Column(name = "projectidentifier", updatable = false, unique = true)
 	private String projectIdentifier;
+	
+	@Column(name = "description")
 	private String description;
+	
+	@Column(name = "startdate")
 	private Date startDate;
+	
+	@Column(name = "enddate")
 	private Date endDate;
 	
-	private Date createdAt;
-	private Date updatedAt;
+	@Column(name = "createddate")
+	private Date createdDate;
+	
+	@Column(name = "updateddate")
+	private Date updateddate;
 	
 	@PrePersist
 	protected void onCreate() {
-		this.createdAt = new Date();
+		this.createdDate = new Date();
 	}
 	
 	@PreUpdate
 	protected void onUpdate() {
-		this.updatedAt = new Date();
+		this.updateddate = new Date();
 	}
 }

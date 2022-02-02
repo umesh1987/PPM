@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.ppm.dto.ProjectDto;
 import com.ppm.entity.Project;
+import com.ppm.exceptions.ProjectIdentifierException;
 import com.ppm.repository.ProjectRepository;
 
 @Service
@@ -15,19 +16,23 @@ public class ProjectService {
 	
 	public ProjectDto saveOrUpdateProject(ProjectDto projectDto) {
 		Project project = mapToEntity(projectDto);
-		Project newProject = projectRepository.save(project);
-		return mapToDto(newProject);
+		try {
+			Project newProject = projectRepository.save(project);
+			return mapToDto(newProject);
+		} catch (Exception e) {
+			throw new ProjectIdentifierException("Project ID '" + project.getProjectIdentifier() + "' already exisit.", e);
+		}
 	}
 	
 	private Project mapToEntity(ProjectDto projectDto) {
 		Project project = new Project();
 		project.setProjectName(projectDto.getProjectName());
-		project.setProjectIdentifier(projectDto.getProjectIdentifier());
+		project.setProjectIdentifier(projectDto.getProjectIdentifier().toUpperCase());
 		project.setDescription(projectDto.getDescription());
 		project.setStartDate(projectDto.getStartDate());
 		project.setEndDate(projectDto.getEndDate());
-		project.setCreatedAt(projectDto.getCreatedAt());
-		project.setUpdatedAt(projectDto.getUpdatedAt());
+		project.setCreatedDate(projectDto.getCreatedDate());
+		project.setUpdateddate(projectDto.getUpdatedDate());
 		return project;
 		
 	}
@@ -40,8 +45,8 @@ public class ProjectService {
 		projectDto.setDescription(project.getDescription());
 		projectDto.setStartDate(project.getStartDate());
 		projectDto.setEndDate(project.getEndDate());
-		projectDto.setCreatedAt(project.getCreatedAt());
-		projectDto.setUpdatedAt(project.getUpdatedAt());
+		projectDto.setCreatedDate(project.getCreatedDate());
+		projectDto.setUpdatedDate(project.getUpdateddate());
 		return projectDto;		
 	}
 
