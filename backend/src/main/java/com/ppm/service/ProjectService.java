@@ -1,5 +1,7 @@
 package com.ppm.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,8 +22,30 @@ public class ProjectService {
 			Project newProject = projectRepository.save(project);
 			return mapToDto(newProject);
 		} catch (Exception e) {
-			throw new ProjectIdentifierException("Project ID '" + project.getProjectIdentifier() + "' already exisit.", e);
+			throw new ProjectIdentifierException("Project ID '" + project.getProjectIdentifier() + "' already exisit.");
 		}
+	}
+	
+	public ProjectDto findByProjectIdentifier(String projectIdentifier) {
+		Project findProject = projectRepository.findByProjectIdentifier(projectIdentifier);
+		
+		if(findProject == null) {
+			throw new ProjectIdentifierException("Project ID '" + projectIdentifier + "' does not exisit.");
+		}
+		return mapToDto(findProject);
+	}
+	
+	public List<Project> findAllProjects() {
+		return projectRepository.findAll();
+		
+	}
+	
+	public void deleteProjectByIdentifier(String projectIdentifier) {
+		Project project = projectRepository.findByProjectIdentifier(projectIdentifier);
+		if(project == null) {
+			throw new ProjectIdentifierException("Project ID '" + projectIdentifier + "' does not exisit to delete.");	
+		}
+		projectRepository.delete(project);
 	}
 	
 	private Project mapToEntity(ProjectDto projectDto) {
